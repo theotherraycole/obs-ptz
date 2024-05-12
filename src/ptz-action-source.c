@@ -7,6 +7,7 @@
  * This file implements an OBS source plugin that triggers PTZ device actions,
  * like recalling a preset or initiating a camera move.
  */
+
 #include <obs-module.h>
 #include <obs-frontend-api.h>
 #include <callback/signal.h>
