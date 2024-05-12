@@ -6,14 +6,8 @@ execute_process(
   OUTPUT_VARIABLE PLUGIN_VERSION
   WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
   OUTPUT_STRIP_TRAILING_WHITESPACE)
-string(REGEX REPLACE "^v" "" PLUGIN_VERSION ${PLUGIN_VERSION})
 
-if(PLUGIN_VERSION MATCHES "^[vV]?([0-9][.0-9]+)")
-  set(SIMPLE_VERSION ${CMAKE_MATCH_1})
-else()
-  message(FATAL_ERROR "version ${PLUGIN_VERSION} needs to be in semantic form X.Y.Z[*]")
-endif()
-add_compile_definitions(PLUGIN_NAME="${CMAKE_PROJECT_NAME}" PLUGIN_VERSION="${PLUGIN_VERSION}")
+add_compile_definitions(PLUGIN_NAME="${CMAKE_PROJECT_NAME}" PLUGIN_VERSION="v0.5.2024")
 
 # Change obs-plugintemplate to your plugin's name in a machine-readable format (e.g.:
 # obs-myawesomeplugin) and set
