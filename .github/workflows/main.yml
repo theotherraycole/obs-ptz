@@ -19,7 +19,7 @@ on:
 
 env:
   PLUGIN_NAME: 'obs-ptz'
-  PLUGIN_VERSION: '5.12.2024'
+  PLUGIN_VERSION: 'v5.12.2024'
 
 jobs:
   clang_check:
