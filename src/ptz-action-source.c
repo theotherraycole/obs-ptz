@@ -274,7 +274,7 @@ static obs_properties_t *ptz_action_source_get_properties(void *data)
 		"Scene becomes active preview only if not already active program",
 		PTZ_ACTION_TRIGGER_PREVIEW_ONLY_ACTIVE);
 
-	obs_property_list_add_int(prop, "Scene transition,
+	obs_property_list_add_int(prop, "Scene transition",
 				  PTZ_ACTION_TRIGGER_TRANSITION);
 
 	/* Enumerate the cameras */
