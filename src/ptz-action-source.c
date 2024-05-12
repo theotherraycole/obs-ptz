@@ -16,6 +16,7 @@ enum ptz_action_trigger_type {
 	PTZ_ACTION_TRIGGER_PROGRAM_ACTIVE = 0,
 	PTZ_ACTION_TRIGGER_PREVIEW_ACTIVE,
 	PTZ_ACTION_TRIGGER_PREVIEW_ONLY_ACTIVE,
+	PTZ_ACTION_TRIGGER_TRANSITION,
 };
 
 enum ptz_action_type {
@@ -93,6 +94,13 @@ static void ptz_action_source_activate(void *data)
 {
 	struct ptz_action_source_data *context = data;
 	if (context->trigger == PTZ_ACTION_TRIGGER_PROGRAM_ACTIVE)
+		ptz_action_source_do_action(context);
+}
+
+static void ptz_action_source_transition(void *data)
+{
+	struct ptz_action_source_data *context = data;
+	if (context->trigger == PTZ_ACTION_TRIGGER_TRANSITION)
 		ptz_action_source_do_action(context);
 }
 
@@ -265,6 +273,9 @@ static obs_properties_t *ptz_action_source_get_properties(void *data)
 		"Scene becomes active preview only if not already active program",
 		PTZ_ACTION_TRIGGER_PREVIEW_ONLY_ACTIVE);
 
+	obs_property_list_add_int(prop, "Scene transition,
+				  PTZ_ACTION_TRIGGER_TRANSITION);
+
 	/* Enumerate the cameras */
 	prop = obs_properties_add_list(props, "device_id", "Camera",
 				       OBS_COMBO_TYPE_LIST,
@@ -311,6 +322,7 @@ struct obs_source_info ptz_action_source = {
 	.get_name = ptz_action_source_get_name,
 	.create = ptz_action_source_create,
 	.activate = ptz_action_source_activate,
+        .transition_start = ptz_action_source_transition,
 	.destroy = ptz_action_source_destroy,
 	.update = ptz_action_source_update,
 	.get_properties = ptz_action_source_get_properties,
