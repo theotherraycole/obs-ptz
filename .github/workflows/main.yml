@@ -43,6 +43,54 @@ jobs:
       - name: Run cmake-format
         run: ./.github/scripts/check-cmake.sh
 
+  macos_build:
+    name: 02 - macOS
+    runs-on: macos-12
+    strategy:
+      fail-fast: true
+      matrix:
+        arch: [x86_64, arm64, universal]
+    if: always()
+    needs: [clang_check]
+    outputs:
+      commitHash: ${{ steps.setup.outputs.commitHash }}
+    env:
+      CODESIGN_IDENT: '-'
+      CODESIGN_IDENT_INSTALLER: ''
+      MACOSX_DEPLOYMENT_TARGET: '10.15'
+    defaults:
+      run:
+        shell: zsh {0}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: plugin
+          fetch-depth: 0
+          submodules: recursive
+
+  linux_build:
+    name: 02 - Linux
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: true
+      matrix:
+        arch: [x86_64]
+    if: always()
+    needs: [clang_check]
+    outputs:
+      commitHash: ${{ steps.setup.outputs.commitHash }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: plugin
+          fetch-depth: 0
+          submodules: recursive
+
   windows_build:
     name: 02 - Windows
     runs-on: windows-2022
