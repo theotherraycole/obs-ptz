@@ -9,7 +9,7 @@
 #include <QNetworkDatagram>
 #include "ptz-visca.hpp"
 #include <util/base.h>
-
+#include <windows.h>
 /* Visca specific datagram field classes */
 class visca_u4 : public int_field {
 public:
