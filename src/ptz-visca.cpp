@@ -5,6 +5,7 @@
  * SPDX-License-Identifier: GPLv2
  */
 
+
 #include "imported/qt-wrappers.hpp"
 #include <QNetworkDatagram>
 #include "ptz-visca.hpp"
