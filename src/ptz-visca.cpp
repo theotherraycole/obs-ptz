@@ -859,7 +859,7 @@ void PTZVisca::send_pending()
 	       iRetries > 0)
 	{
 		iRetries --;
-		sleep(1);
+		Sleep(1);
 	};
 
 	if (pending_cmds.isEmpty()) {
