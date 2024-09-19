@@ -854,8 +854,13 @@ void PTZVisca::receive(const QByteArray &msg)
 
 void PTZVisca::send_pending()
 {
-	if (active_cmd[0].has_value())
-		return;
+	int iRetries = 10;
+	while (active_cmd[0].has_value() &&
+	       iRetries > 0)
+	{
+		iRetries --;
+		sleep(1);
+	};
 
 	if (pending_cmds.isEmpty()) {
 		if (status & STATUS_PANTILT_SPEED_CHANGED) {
